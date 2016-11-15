@@ -4,6 +4,11 @@
 Many of these descriptions and examples come from various resources (see 
 [Acknowledgements](#acknowledgements) section), summarized in my own words.
 
+Beside each feature is a reference to the WG21 paper as well as the name for
+`CMAKE_CXX_KNOWN_FEATURES` for CMakes `target_compile_features(<target> <PRIVATE|PUBLIC|INTERFACE> <feature> [...])`
+function where applicable, to indicate which language feature is used in order for
+CMake to decide how to compile a given target.
+
 C++17 includes the following new language features:
 - [template argument deduction for class templates](#template-argument-deduction-for-class-templates)
 - [declaring non-type template parameters with auto](#declaring-non-type-template-parameters-with-auto)
@@ -26,38 +31,38 @@ C++17 includes the following new library features:
 - [splicing for maps and sets](#splicing-for-maps-and-sets)
 
 C++14 includes the following new language features:
-- [binary literals](#binary-literals) [(N3472)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3472.pdf)
-- [generic lambda expressions](#generic-lambda-expressions) [(N3649)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3649.html)
-- [lambda capture initializers](#lambda-capture-initializers) [(N3648)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3648.html)
-- [return type deduction](#return-type-deduction) [(N2541)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2541.htm)
-- [decltype(auto)](#decltypeauto) [(N3276)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3276.pdf)
-- [relaxing constraints on constexpr functions](#relaxing-constraints-on-constexpr-functions) [(N3652)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3652.html)
+- [binary literals](#binary-literals) [(N3472)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3472.pdf), `cxx_binary_literals`
+- [generic lambda expressions](#generic-lambda-expressions) [(N3649)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3649.html), `cxx_generic_lambdas`
+- [lambda capture initializers](#lambda-capture-initializers) [(N3648)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3648.html), `cxx_lambda_init_captures`
+- [return type deduction](#return-type-deduction) [(N2541)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2541.htm), `cxx_return_type_deduction`
+- [decltype(auto)](#decltypeauto) [(N3276)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3276.pdf), `cxx_decltype_auto`
+- [relaxing constraints on constexpr functions](#relaxing-constraints-on-constexpr-functions) [(N3652)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3652.html), `cxx_relaxed_constexpr`
 
 C++14 includes the following new library features:
 - [user-defined literals for standard library types](#user-defined-literals-for-standard-library-types) [(N2765)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2765.pdf)
 - [compile-time integer sequences](#compile-time-integer-sequences)
 
 C++11 includes the following new language features:
-- [move semantics](#move-semantics) [(N3053)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2010/n3053.html)
-- [variadic templates](#variadic-templates) [(N2242)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2242.pdf)
-- [rvalue references](#rvalue-references) [(N2118)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2118.html)
-- [initializer lists](#initializer-lists) [(N2672)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2672.htm)
-- [static assertions](#static-assertions) [(N1720)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1720.html)
-- [auto](#auto) [(N1984)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1984.pdf)
-- [lambda expressions](#lambda-expressions) [(N2927)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2009/n2927.pdf)
-- [decltype](#decltype) [(N2343)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2343.pdf)
-- [template aliases](#template-aliases) [(N2258)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2258.pdf)
-- [nullptr](#nullptr) [(N2431)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2431.pdf)
-- [strongly-typed enums](#strongly-typed-enums) [(N2347)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2347.pdf)
-- [attributes](#attributes) [(N2761)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2761.pdf)
-- [constexpr](#constexpr) [(N2335)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2235.pdf)
-- [delegating constructors](#delegating-constructors) [(N1986)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1986.pdf)
-- [user-defined literals](#user-defined-literals) [(N2765)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2765.pdf)
-- [explicit virtual overrides](#explicit-virtual-overrides) [(N2928)](http://www.open-std.org/JTC1/SC22/WG21/docs/papers/2009/n2928.htm)
-- [default functions](#default-functions)
-- [deleted functions](#deleted-functions) [(N2346)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2346.htm)
-- [range-based for loops](#range-based-for-loops) [(N2930)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2009/n2930.html)
-- [special member functions for move semantics](#special-member-functions-for-move-semantics) [(N3053)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2010/n3053.html)
+- [move semantics](#move-semantics) [(N3053)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2010/n3053.html), `cxx_defaulted_move_initializers`
+- [variadic templates](#variadic-templates) [(N2242)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2242.pdf), `cxx_variadic_templates`
+- [rvalue references](#rvalue-references) [(N2118)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2118.html), `cxx_rvalue_references`
+- [initializer lists](#initializer-lists) [(N2672)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2672.htm), `cxx_generalized_initializers`
+- [static assertions](#static-assertions) [(N1720)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1720.html), `cxx_static_assert`
+- [auto](#auto) [(N1984)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1984.pdf), `cxx_auto_type`
+- [lambda expressions](#lambda-expressions) [(N2927)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2009/n2927.pdf), `cxx_lambdas`
+- [decltype](#decltype) [(N2343)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2343.pdf), `cxx_decltype`
+- [template aliases](#template-aliases) [(N2258)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2258.pdf), `cxx_alias_templates`
+- [nullptr](#nullptr) [(N2431)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2431.pdf), `cxx_nullptr`
+- [strongly-typed enums](#strongly-typed-enums) [(N2347)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2347.pdf), `cxx_strong_enums`
+- [attributes](#attributes) [(N2761)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2761.pdf), `cxx_attributes`
+- [constexpr](#constexpr) [(N2335)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2235.pdf), `cxx_constexpr`
+- [delegating constructors](#delegating-constructors) [(N1986)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1986.pdf), `cxx_delegating_constructors`
+- [user-defined literals](#user-defined-literals) [(N2765)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2765.pdf), `cxx_user_literals`
+- [explicit virtual overrides](#explicit-virtual-overrides) [(N2928)](http://www.open-std.org/JTC1/SC22/WG21/docs/papers/2009/n2928.htm), `cxx_override`
+- [default functions](#default-functions), `cxx_defaulted_functions`
+- [deleted functions](#deleted-functions) [(N2346)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2346.htm), `cxx_deleted_functions`
+- [range-based for loops](#range-based-for-loops) [(N2930)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2009/n2930.html), `cxx_range_for`
+- [special member functions for move semantics](#special-member-functions-for-move-semantics) [(N3053)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2010/n3053.html), `cxx_defaulted_move_initializers`
 
 C++11 includes the following new library features:
 - [std::move](#stdmove)
